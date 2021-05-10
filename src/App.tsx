@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
+
 import './App.css';
+import {Num} from './Num';
+import {NumPlus} from "./NumPlus";
+import {NumRefresh} from "./NumRefresh";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [num, setNum] = useState<number>(0)
+    const numPlus = () => setNum(() => {let a:number;a = num;return (++a)})
+    return (
+        <div className="App">
+            <div className="numBlock">
+                <Num num={num}/>
+            </div>
+            <div className="buttonBlock">
+                <NumPlus numPlus={numPlus} num={num}/>
+                <NumRefresh setNum={setNum} num={num}/>
+            </div>
+        </div>
+    );
 }
-
 export default App;
