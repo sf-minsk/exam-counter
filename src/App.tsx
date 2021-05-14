@@ -1,40 +1,58 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-
 import './App.css';
+import {Counter} from './Counter';
+import {Settings} from "./Settings";
 
 function App() {
-    const [value, setValue] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(1)
+
+    const [maxValue, setMaxValue] = useState<number>(0)
     const [minValue, setMinValue] = useState<number>(0)
+    const [value, setValue] = useState<number>(minValue)
     const [editMode, setEditMode] = useState<boolean>(false)
     const [error, setError] = useState<boolean>(false)
     const [ultimateValue, setUltimateValue] = useState<number>(maxValue)
-
+    const [start, setStart] = useState<boolean>(true)
+    const maxValueToString = localStorage.getItem('Maximum value')
+    const minValueToString = localStorage.getItem('Minimum value')
 
     useEffect(() => {
-        const maxValueToString = localStorage.getItem('Maximum value')
-        const minValueToString = localStorage.getItem('Minimum value')
+
         if (minValueToString && maxValueToString) {
             setMinValue(JSON.parse(minValueToString))
-            setValue(JSON.parse(minValueToString))
             setMaxValue(JSON.parse(maxValueToString))
+            setUltimateValue(JSON.parse(maxValueToString))
+            setValue(JSON.parse(minValueToString))
+        }
+        if (maxValueToString) {
+            if (JSON.parse(maxValueToString) !== 0) {
+                setStart(false)
+            }
         }
     }, [])
+
     useEffect(() => {
-        errorChecker()
-    }, [minValue, maxValue])
-    useEffect(() => {
+
         localStorage.setItem('Maximum value', JSON.stringify(maxValue))
         localStorage.setItem('Minimum value', JSON.stringify(minValue))
+        setUltimateValue(maxValue)
+        setValue(minValue)
+        if (!start) {
+            errorChecker()
+        }
+
     }, [minValue, maxValue])
+
 
     const errorChecker = () => {
         if (maxValue <= minValue) {
             setError(true)
+            setEditMode(true)
         } else if (maxValue <= 0) {
             setError(true)
+            setEditMode(true)
         } else if (minValue < 0) {
             setError(true)
+            setEditMode(true)
         } else {
             setError(false)
         }
@@ -59,35 +77,38 @@ function App() {
     const onMaxInputValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEditMode(true)
         setMaxValue(JSON.parse(e.currentTarget.value))
-
+        setStart(false)
     }
     const onMinInputValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setEditMode(true)
         setMinValue(JSON.parse(e.currentTarget.value))
+        setStart(false)
     }
 
     return (
         <div className="App">
-            <div className='Settings'>
-                <div className='DataBlock'>
-                    <div>MAX Value <input value={maxValue} onChange={onMaxInputValueChangeHandler} type="number"/></div>
-                    <div>MIN Value <input value={minValue} onChange={onMinInputValueChangeHandler} type="number"/></div>
-                </div>
-                <div className='ButtonsBlock'>
-                    <button disabled={!editMode || error} onClick={onSetClickHandler}>SET</button>
-                </div>
-            </div>
-            <div className='Counter'>
-                <div className='DataBlock'>
-                    <div>{editMode ? error ? 'ERROR' : 'set value and press \'set\'' : value}</div>
-                </div>
-                <div className='ButtonsBlock'>
-                    <button disabled={editMode || value === maxValue} onClick={onIncClickHandler}>INC</button>
-                    <button disabled={editMode || value === minValue} onClick={onResetClickHandler}>RESET</button>
-                </div>
-            </div>
-        </div>
+            <Settings
+                setEditMode={setEditMode}
+                maxValue={maxValue}
+                onMaxInputValueChangeHandler={onMaxInputValueChangeHandler}
+                minValue={minValue}
+                onMinInputValueChangeHandler={onMinInputValueChangeHandler}
+                editMode={editMode}
+                onSetClickHandler={onSetClickHandler}
+                error={error}
+            />
+            <Counter
+                value={value}
+                error={error}
+                maxValue={maxValue}
+                minValue={minValue}
+                editMode={editMode}
+                onIncClickHandler={onIncClickHandler}
+                onResetClickHandler={onResetClickHandler}
+                start={start}
+            />
 
+        </div>
     );
 }
 

@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(41, 44, 54);
+}
+
 .App {
     position: absolute;
     top: 50%;
@@ -7,30 +11,50 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    width: 800px;
+    width: 900px;
     height: 400px;
 }
+
 .Settings {
-    display: flex;
+    display: inherit;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 300px;
+    width: 400px;
     height: 380px;
-    border: 1px solid black;
+    border: 2px solid #7ddcfd;
+    border-radius: 15px;
     margin: auto;
+    color: #7ddcfd;
+    font-size: 20px;
 }
+.Settings input {
+    word-wrap: anywhere;
+    width: 70px;
+    height: 40px;
+    font-size: 20px;
+    background-color: rgb(41, 44, 54);
+    color: #7ddcfd;
+    text-align: center;
+    border: 2px solid #7ddcfd;
+    border-radius: 10px;
+    outline: none;
+}
+
 
 .Counter {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 300px;
+    width: 400px;
     height: 380px;
-    border: 1px solid black;
+    border: 2px solid #7ddcfd;
+    border-radius: 15px;
     margin: auto;
+    color: #7ddcfd;
+    font-size: 100px;
+    font-weight: bold;
 }
 
 .DataBlock {
@@ -38,10 +62,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 260px;
-    width: 260px;
-    border: 1px solid black;
+    height: 200px;
+    width: 340px;
+    border: 2px solid #7ddcfd;
+    border-radius: 15px;
     margin: 10px;
+    font-weight: bold;
 }
 
 .ButtonsBlock {
@@ -49,63 +75,41 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    width: 260px;
-    height: 60px;
-    border: 1px solid black;
+    width: 340px;
+    height: 90px;
+    border: 2px solid #7ddcfd;
+    border-radius: 15px;
     margin: 10px;
 }
 
-/*.App {
-    position: absolute;
-    border: 1px solid black;
-    width: 600px;
-    height: 300px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
-}*/
+.ButtonsBlock button {
+    color: rgb(41, 44, 54);
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid #7ddcfd;
+    border-radius: 10px;
+    background-color: #7ddcfd;
+    font-weight: bold;
+}
 
-/*.App .Settings {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    width: 200px;*/
-/*    height: 280px;*/
-/*    border: 1px solid black;*/
-/*}*/
+.ButtonsBlock button:active {
+    color: rgb(41, 44, 54);
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid #2bcafd;
+    border-radius: 10px;
+    background-color: #2bcafd;
+}
 
+.ButtonsBlock button:disabled {
+    color: rgb(41, 44, 54);
+    font-size: 20px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid #3e6b80;
+    border-radius: 10px;
+    background-color: #3e6b80;
+}
 
-/*.App {*/
-/*  margin: 0 auto;*/
-/*  font-size: 30px;*/
-/*  width: 140px;*/
-/*  text-align: center;*/
-/*  border: 1px black solid;*/
-/*  border-radius: 10px;*/
-/*}*/
-
-/*.numBlock {*/
-/*  margin: 5px;*/
-/*  padding: 5px;*/
-/*  border: 1px black solid;*/
-/*  border-radius: 10px;*/
-/*}*/
-
-/*.buttonBlock {*/
-/*  margin: 5px;*/
-/*  padding: 5px;*/
-/*  border: 1px black solid;*/
-/*  border-radius: 10px;*/
-/*}*/
-
-/*.buttonBlock button {*/
-/*  margin: 4px;*/
-/*  background-color: #8686f6;*/
-/*  border: 1px black solid;*/
-/*  border-radius: 10px;*/
-/*}*/
-
-/*.error {*/
-/*  color: red;*/
-/*}*/
