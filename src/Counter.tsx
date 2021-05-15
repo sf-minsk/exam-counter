@@ -1,4 +1,5 @@
 import React, {MouseEventHandler} from "react";
+import s from './App.module.css';
 import {Button} from "./Button";
 
 type PropsType = {
@@ -13,19 +14,27 @@ type PropsType = {
 }
 
 export const Counter = (props: PropsType) => {
+
+    const value =
+        props.start ? 'HELLO! Enter start value and press \'SET\''
+            : (props.editMode
+            ? (props.error
+                ? 'Enter correct value and press \'SET\''
+                : 'Press \'SET\'')
+            : props.value)
+
+    const className = (props.start ? s.StartMessageStyle :
+        (props.editMode ?
+                props.error ? s.ErrorStyle : s.EditModeStyle :
+                props.value === props.maxValue ? s.MaxValueStyle : ''
+        ))
+
     return (
-        <div className='Counter'>
-            <div className='DataBlock'>
-                <div>
-                    {props.start ? 'HELLO!'
-                        : (props.editMode
-                            ? (props.error
-                                ? 'ERROR'
-                                : 'EDIT')
-                            : props.value)}
-                </div>
+        <div className={s.Counter}>
+            <div className={`${className} ${s.DataBlock}`}>
+                {value}
             </div>
-            <div className='ButtonsBlock'>
+            <div className={s.ButtonsBlock}>
                 <Button
                     disabled={props.error || props.editMode || props.value === props.maxValue}
                     onClick={props.onIncClickHandler}

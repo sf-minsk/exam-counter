@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import './App.css';
+import './App.css'
+import s from './App.module.css';
 import {Counter} from './Counter';
 import {Settings} from "./Settings";
 
@@ -23,8 +24,8 @@ function App() {
             setUltimateValue(JSON.parse(maxValueToString))
             setValue(JSON.parse(minValueToString))
         }
-        if (maxValueToString) {
-            if (JSON.parse(maxValueToString) !== 0) {
+        if (maxValueToString && minValueToString) {
+            if (JSON.parse(maxValueToString) !== 0 || JSON.parse(minValueToString) !== 0) {
                 setStart(false)
             }
         }
@@ -41,7 +42,6 @@ function App() {
         }
 
     }, [minValue, maxValue])
-
 
     const errorChecker = () => {
         if (maxValue <= minValue) {
@@ -86,7 +86,7 @@ function App() {
     }
 
     return (
-        <div className="App">
+        <div className={s.App}>
             <Settings
                 setEditMode={setEditMode}
                 maxValue={maxValue}

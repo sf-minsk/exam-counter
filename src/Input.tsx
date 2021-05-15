@@ -1,21 +1,25 @@
-import React, {ChangeEventHandler, FocusEventHandler} from "react";
+import React, {ChangeEventHandler} from "react";
+import s from './App.module.css';
 
 type PropsType = {
-
-    maxValue: number
-    onBlur?: FocusEventHandler<HTMLInputElement>
+    minValue: number
+    value: number
     onChange: ChangeEventHandler<HTMLInputElement>
     name: string
+    error: boolean
 }
+
 export const Input = (props: PropsType) => {
+
+    const className =
+        (props.value < 0) ? s.InputError : ((props.value <= props.minValue && props.error) ? s.InputError : '')
     return (
-        <div>
+        <div className={s.InputBlock}>
             <span>{props.name}</span>
-            <input
-                onBlur={props.onBlur}
-                value={props.maxValue}
-                onChange={props.onChange}
-                type="number"
+            <input className={`${className} ${s.Input}`}
+                   value={props.value}
+                   onChange={props.onChange}
+                   type="number"
             />
         </div>
     )

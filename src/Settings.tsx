@@ -1,4 +1,5 @@
 import React, {ChangeEventHandler, MouseEventHandler} from "react";
+import s from './App.module.css';
 import {Input} from "./Input";
 import {Button} from "./Button";
 
@@ -15,32 +16,29 @@ type PropsType = {
 
 export const Settings = (props: PropsType) => {
 
-    const onBlur = () => {
-        props.setEditMode(false)
-    }
-
     return (
-        <div className='Settings'>
-            <div className='DataBlock'>
+        <div className={s.Settings}>
+            <div className={s.DataBlock}>
                 <div>
-                    {/*MAX Value: */}
                     <Input
-                        onBlur={onBlur}
-                        maxValue={props.maxValue}
+                        value={props.maxValue}
                         onChange={props.onMaxInputValueChangeHandler}
-                        name={'MAX Value: '}
+                        name={'MAX Value:'}
+                        minValue={props.minValue}
+                        error={props.error}
                     />
                 </div>
                 <div>
                     <Input
-                        onBlur={onBlur}
-                        maxValue={props.minValue}
+                        value={props.minValue}
                         onChange={props.onMinInputValueChangeHandler}
-                        name={'MIN Value: '}
+                        name={'MIN Value:'}
+                        minValue={props.minValue}
+                        error={props.error}
                     />
                 </div>
             </div>
-            <div className='ButtonsBlock'>
+            <div className={s.ButtonsBlock}>
                 <Button
                     disabled={!props.editMode || props.error}
                     onClick={props.onSetClickHandler}
