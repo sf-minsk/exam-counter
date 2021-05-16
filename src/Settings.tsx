@@ -24,7 +24,9 @@ export const Settings = (props: PropsType) => {
                         value={props.maxValue}
                         onChange={props.onMaxInputValueChangeHandler}
                         name={'MAX Value:'}
+                        maxValue={props.maxValue}
                         minValue={props.minValue}
+
                         error={props.error}
                     />
                 </div>
@@ -33,7 +35,9 @@ export const Settings = (props: PropsType) => {
                         value={props.minValue}
                         onChange={props.onMinInputValueChangeHandler}
                         name={'MIN Value:'}
+                        maxValue={props.maxValue}
                         minValue={props.minValue}
+
                         error={props.error}
                     />
                 </div>

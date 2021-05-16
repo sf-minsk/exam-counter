@@ -1,5 +1,4 @@
 import React, {MouseEventHandler} from "react";
-import s from './App.module.css';
 
 type PropsType = {
     disabled: boolean

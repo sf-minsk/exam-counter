@@ -13,6 +13,7 @@ function App() {
     const [error, setError] = useState<boolean>(false)
     const [ultimateValue, setUltimateValue] = useState<number>(maxValue)
     const [start, setStart] = useState<boolean>(true)
+
     const maxValueToString = localStorage.getItem('Maximum value')
     const minValueToString = localStorage.getItem('Minimum value')
 
@@ -35,8 +36,8 @@ function App() {
 
         localStorage.setItem('Maximum value', JSON.stringify(maxValue))
         localStorage.setItem('Minimum value', JSON.stringify(minValue))
-        setUltimateValue(maxValue)
-        setValue(minValue)
+        // setUltimateValue(maxValue)
+        // setValue(minValue)
         if (!start) {
             errorChecker()
         }
@@ -47,15 +48,21 @@ function App() {
         if (maxValue <= minValue) {
             setError(true)
             setEditMode(true)
-        } else if (maxValue <= 0) {
+            return
+        }
+        if (maxValue <= 0) {
             setError(true)
             setEditMode(true)
-        } else if (minValue < 0) {
+            return;
+        }
+        if (minValue < 0) {
             setError(true)
             setEditMode(true)
+            return;
         } else {
             setError(false)
         }
+
     }
     const onSetClickHandler = () => {
         setValue(minValue)
