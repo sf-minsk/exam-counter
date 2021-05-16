@@ -14,18 +14,14 @@ function App() {
     const [ultimateValue, setUltimateValue] = useState<number>(maxValue)
     const [start, setStart] = useState<boolean>(true)
 
-    const maxValueToString = localStorage.getItem('Maximum value')
-    const minValueToString = localStorage.getItem('Minimum value')
-
     useEffect(() => {
-
+        const maxValueToString = localStorage.getItem('Maximum value')
+        const minValueToString = localStorage.getItem('Minimum value')
         if (minValueToString && maxValueToString) {
             setMinValue(JSON.parse(minValueToString))
             setMaxValue(JSON.parse(maxValueToString))
             setUltimateValue(JSON.parse(maxValueToString))
             setValue(JSON.parse(minValueToString))
-        }
-        if (maxValueToString && minValueToString) {
             if (JSON.parse(maxValueToString) !== 0 || JSON.parse(minValueToString) !== 0) {
                 setStart(false)
             }
@@ -33,15 +29,9 @@ function App() {
     }, [])
 
     useEffect(() => {
-
-        localStorage.setItem('Maximum value', JSON.stringify(maxValue))
-        localStorage.setItem('Minimum value', JSON.stringify(minValue))
-        // setUltimateValue(maxValue)
-        // setValue(minValue)
         if (!start) {
             errorChecker()
         }
-
     }, [minValue, maxValue])
 
     const errorChecker = () => {
@@ -65,6 +55,8 @@ function App() {
 
     }
     const onSetClickHandler = () => {
+        localStorage.setItem('Maximum value', JSON.stringify(maxValue))
+        localStorage.setItem('Minimum value', JSON.stringify(minValue))
         setValue(minValue)
         setUltimateValue(maxValue)
         setEditMode(false)

@@ -19,7 +19,7 @@ export const Settings = (props: PropsType) => {
     return (
         <div className={s.Settings}>
             <div className={s.DataBlock}>
-                <div>
+
                     <Input
                         value={props.maxValue}
                         onChange={props.onMaxInputValueChangeHandler}
@@ -29,8 +29,7 @@ export const Settings = (props: PropsType) => {
 
                         error={props.error}
                     />
-                </div>
-                <div>
+
                     <Input
                         value={props.minValue}
                         onChange={props.onMinInputValueChangeHandler}
@@ -40,7 +39,7 @@ export const Settings = (props: PropsType) => {
 
                         error={props.error}
                     />
-                </div>
+
             </div>
             <div className={s.ButtonsBlock}>
                 <Button

@@ -41,7 +41,7 @@ export const Counter = (props: PropsType) => {
                     name={'INC'}
                 />
                 <Button
-                    disabled={props.value === props.minValue}
+                    disabled={props.editMode ||props.value === props.minValue}
                     onClick={props.onResetClickHandler}
                     name={'RESET'}
                 />
