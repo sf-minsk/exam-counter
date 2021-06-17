@@ -13,7 +13,7 @@ type PropsType = {
     onSetClickHandler: MouseEventHandler<HTMLButtonElement>
 }
 
-export const Settings = (props: PropsType) => {
+export const Settings = React.memo((props: PropsType) => {
 
     return (
         <div className={s.Settings}>
@@ -44,4 +44,4 @@ export const Settings = (props: PropsType) => {
             </div>
         </div>
     )
-}
+})

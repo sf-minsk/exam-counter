@@ -6,7 +6,7 @@ type PropsType = {
     name: string
 }
 
-export const Button = (props: PropsType) => {
+export const Button = React.memo((props: PropsType) => {
     return (
         <button
             disabled={props.disabled}
@@ -15,4 +15,4 @@ export const Button = (props: PropsType) => {
             {props.name}
         </button>
     )
-}
+})

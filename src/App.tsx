@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css'
 import s from './App.module.css';
 import {Counter} from './Counter';
@@ -27,26 +27,26 @@ function App() {
     } = useSelector((state: AppStateType) => state.counter)
     const dispatch = useDispatch()
 
-    const onSetClickHandler = () => {
+    const onSetClickHandler = useCallback(() => {
         dispatch(onSetHandlerAC())
         saveState({
             counter: store.getState().counter
         })
-    }
-    const onIncClickHandler = () => {
+    }, [dispatch])
+    const onIncClickHandler = useCallback(() => {
         dispatch(onIncClickHandlerAC())
-    }
-    const onResetClickHandler = () => {
+    }, [dispatch])
+    const onResetClickHandler = useCallback(() => {
         dispatch(onResetClickHandlerAC())
-    }
-    const onMaxInputValueChangeHandler = (value: number) => {
+    }, [dispatch])
+    const onMaxInputValueChangeHandler = useCallback((value: number) => {
         dispatch(onMaxInputValueChangeHandlerAC(value))
         dispatch(errorCheckerAC())
-    }
-    const onMinInputValueChangeHandler = (value: number) => {
+    }, [dispatch])
+    const onMinInputValueChangeHandler = useCallback((value: number) => {
         dispatch(onMinInputValueChangeHandlerAC(value))
         dispatch(errorCheckerAC())
-    }
+    }, [dispatch])
 
     return (
         <div className={s.App}>

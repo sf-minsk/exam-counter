@@ -10,7 +10,7 @@ type PropsType = {
     error: boolean
 }
 
-export const Input = (props: PropsType) => {
+export const Input = React.memo((props: PropsType) => {
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.onChange(JSON.parse(e.currentTarget.value))
@@ -30,4 +30,4 @@ export const Input = (props: PropsType) => {
             />
         </div>
     )
-}
+})

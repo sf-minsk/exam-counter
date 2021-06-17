@@ -13,7 +13,7 @@ type PropsType = {
     start: boolean
 }
 
-export const Counter = (props: PropsType) => {
+export const Counter = React.memo((props: PropsType) => {
 
     const value =
         props.start ? 'HELLO! Enter start value and press \'SET\''
@@ -41,11 +41,11 @@ export const Counter = (props: PropsType) => {
                     name={'INC'}
                 />
                 <Button
-                    disabled={props.editMode ||props.value === props.minValue}
+                    disabled={props.editMode || props.value === props.minValue}
                     onClick={props.onResetClickHandler}
                     name={'RESET'}
                 />
             </div>
         </div>
     )
-}
+})
