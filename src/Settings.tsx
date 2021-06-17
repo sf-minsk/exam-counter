@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, MouseEventHandler} from "react";
+import React, {MouseEventHandler} from "react";
 import s from './App.module.css';
 import {Input} from "./Input";
 import {Button} from "./Button";
@@ -8,9 +8,8 @@ type PropsType = {
     minValue: number
     editMode: boolean
     error: boolean
-    setEditMode: (value: boolean) => void
-    onMaxInputValueChangeHandler: ChangeEventHandler<HTMLInputElement>
-    onMinInputValueChangeHandler: ChangeEventHandler<HTMLInputElement>
+    onMaxInputValueChangeHandler: (value: number) => void
+    onMinInputValueChangeHandler: (value: number) => void
     onSetClickHandler: MouseEventHandler<HTMLButtonElement>
 }
 
@@ -19,27 +18,22 @@ export const Settings = (props: PropsType) => {
     return (
         <div className={s.Settings}>
             <div className={s.DataBlock}>
-
-                    <Input
-                        value={props.maxValue}
-                        onChange={props.onMaxInputValueChangeHandler}
-                        name={'MAX Value:'}
-                        maxValue={props.maxValue}
-                        minValue={props.minValue}
-
-                        error={props.error}
-                    />
-
-                    <Input
-                        value={props.minValue}
-                        onChange={props.onMinInputValueChangeHandler}
-                        name={'MIN Value:'}
-                        maxValue={props.maxValue}
-                        minValue={props.minValue}
-
-                        error={props.error}
-                    />
-
+                <Input
+                    value={props.maxValue}
+                    onChange={props.onMaxInputValueChangeHandler}
+                    name={'MAX Value:'}
+                    maxValue={props.maxValue}
+                    minValue={props.minValue}
+                    error={props.error}
+                />
+                <Input
+                    value={props.minValue}
+                    onChange={props.onMinInputValueChangeHandler}
+                    name={'MIN Value:'}
+                    maxValue={props.maxValue}
+                    minValue={props.minValue}
+                    error={props.error}
+                />
             </div>
             <div className={s.ButtonsBlock}>
                 <Button

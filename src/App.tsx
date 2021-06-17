@@ -1,93 +1,56 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React from 'react';
 import './App.css'
 import s from './App.module.css';
 import {Counter} from './Counter';
 import {Settings} from "./Settings";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType, store} from "./bll/store";
+import {
+    errorCheckerAC,
+    onIncClickHandlerAC,
+    onMaxInputValueChangeHandlerAC,
+    onMinInputValueChangeHandlerAC,
+    onResetClickHandlerAC,
+    onSetHandlerAC
+} from "./bll/counter-reducer";
+import {saveState} from "./utils/localstorage-utils";
 
 function App() {
 
-    const [maxValue, setMaxValue] = useState<number>(0)
-    const [minValue, setMinValue] = useState<number>(0)
-    const [value, setValue] = useState<number>(minValue)
-    const [editMode, setEditMode] = useState<boolean>(false)
-    const [error, setError] = useState<boolean>(false)
-    const [ultimateValue, setUltimateValue] = useState<number>(maxValue)
-    const [start, setStart] = useState<boolean>(true)
+    const {
+        maxValue,
+        minValue,
+        value,
+        editMode,
+        error,
+        start,
+    } = useSelector((state: AppStateType) => state.counter)
+    const dispatch = useDispatch()
 
-    useEffect(() => {
-        const maxValueToString = localStorage.getItem('Maximum value')
-        const minValueToString = localStorage.getItem('Minimum value')
-        if (minValueToString && maxValueToString) {
-            setMinValue(JSON.parse(minValueToString))
-            setMaxValue(JSON.parse(maxValueToString))
-            setUltimateValue(JSON.parse(maxValueToString))
-            setValue(JSON.parse(minValueToString))
-            if (JSON.parse(maxValueToString) !== 0 || JSON.parse(minValueToString) !== 0) {
-                setStart(false)
-            }
-        }
-    }, [])
-
-    useEffect(() => {
-        if (!start) {
-            errorChecker()
-        }
-    }, [minValue, maxValue])
-
-    const errorChecker = () => {
-        if (maxValue <= minValue) {
-            setError(true)
-            setEditMode(true)
-            return
-        }
-        if (maxValue <= 0) {
-            setError(true)
-            setEditMode(true)
-            return;
-        }
-        if (minValue < 0) {
-            setError(true)
-            setEditMode(true)
-            return;
-        } else {
-            setError(false)
-        }
-
-    }
     const onSetClickHandler = () => {
-        localStorage.setItem('Maximum value', JSON.stringify(maxValue))
-        localStorage.setItem('Minimum value', JSON.stringify(minValue))
-        setValue(minValue)
-        setUltimateValue(maxValue)
-        setEditMode(false)
+        dispatch(onSetHandlerAC())
+        saveState({
+            counter: store.getState().counter
+        })
     }
     const onIncClickHandler = () => {
-        if (value < ultimateValue) {
-            setValue(() => {
-                let a: number;
-                a = value;
-                return (++a)
-            })
-        }
+        dispatch(onIncClickHandlerAC())
     }
     const onResetClickHandler = () => {
-        setValue(minValue)
+        dispatch(onResetClickHandlerAC())
     }
-    const onMaxInputValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setEditMode(true)
-        setMaxValue(JSON.parse(e.currentTarget.value))
-        setStart(false)
+    const onMaxInputValueChangeHandler = (value: number) => {
+        dispatch(onMaxInputValueChangeHandlerAC(value))
+        dispatch(errorCheckerAC())
     }
-    const onMinInputValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setEditMode(true)
-        setMinValue(JSON.parse(e.currentTarget.value))
-        setStart(false)
+    const onMinInputValueChangeHandler = (value: number) => {
+        dispatch(onMinInputValueChangeHandlerAC(value))
+        dispatch(errorCheckerAC())
     }
 
     return (
         <div className={s.App}>
             <Settings
-                setEditMode={setEditMode}
                 maxValue={maxValue}
                 onMaxInputValueChangeHandler={onMaxInputValueChangeHandler}
                 minValue={minValue}
@@ -106,7 +69,6 @@ function App() {
                 onResetClickHandler={onResetClickHandler}
                 start={start}
             />
-
         </div>
     );
 }

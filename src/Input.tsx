@@ -1,16 +1,20 @@
-import React, {ChangeEventHandler} from "react";
+import React, {ChangeEvent} from "react";
 import s from './App.module.css';
 
 type PropsType = {
     maxValue: number
     minValue: number
     value: number
-    onChange: ChangeEventHandler<HTMLInputElement>
+    onChange: (value: number) => void
     name: string
     error: boolean
 }
 
 export const Input = (props: PropsType) => {
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        props.onChange(JSON.parse(e.currentTarget.value))
+    }
 
     const className =
         (props.value < 0 || (props.error && props.maxValue === 0))
@@ -21,7 +25,7 @@ export const Input = (props: PropsType) => {
             <span>{props.name}</span>
             <input className={`${className} ${s.Input}`}
                    value={props.value}
-                   onChange={props.onChange}
+                   onChange={onChangeHandler}
                    type="number"
             />
         </div>
