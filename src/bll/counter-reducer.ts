@@ -13,17 +13,12 @@ type initialStateType = typeof initialState
 export const counterReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case "ERROR-CHECK": {
-            if (state.maxValue <= state.minValue) {
-                return {...state, error: true, editMode: true}
-            }
-            if (state.maxValue <= 0) {
-                return {...state, error: true, editMode: true}
-            }
-            if (state.minValue < 0) {
-                return {...state, error: true, editMode: true}
-            } else {
+            if (state.maxValue <= state.minValue
+                || state.maxValue <= 0
+                || state.minValue < 0)
+                return {...state, error: true}
+            else
                 return {...state, error: false}
-            }
         }
         case "ON-SET-HANDLER": {
             return {...state, value: state.minValue, ultimateValue: state.maxValue, editMode: false}

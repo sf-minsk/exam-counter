@@ -15,11 +15,11 @@ export const Input = React.memo((props: PropsType) => {
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         props.onChange(JSON.parse(e.currentTarget.value))
     }
-
     const className =
         (props.value < 0 || (props.error && props.maxValue === 0))
             ? s.InputError : ((props.value <= props.minValue && props.error)
             ? s.InputError : '')
+
     return (
         <div className={s.InputBlock}>
             <span>{props.name}</span>
